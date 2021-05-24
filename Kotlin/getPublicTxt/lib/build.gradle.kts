@@ -1,13 +1,13 @@
-plugins {
-    id("com.android.library")
-    kotlin("android")
-}
-
 import com.android.build.api.artifact.ArtifactType
 import com.android.build.api.variant.BuiltArtifactsLoader
 import java.lang.RuntimeException
 import java.util.Locale
 import javax.inject.Inject
+
+plugins {
+    id("com.android.library")
+    kotlin("android")
+}
 
 abstract class PublicResourcesValidatorTask: DefaultTask() {
 
@@ -39,6 +39,7 @@ abstract class PublicResourcesValidatorTask: DefaultTask() {
         override fun execute() {
             val actual = parameters.actual.get().asFile.readLines()
             val expected = parameters.expected.get().asFile.readLines()
+            println("file:${parameters.actual.get().asFile.absolutePath}")
             if (actual != expected) {
                 throw RuntimeException(
                         "Public Android resources have changed.\n" +

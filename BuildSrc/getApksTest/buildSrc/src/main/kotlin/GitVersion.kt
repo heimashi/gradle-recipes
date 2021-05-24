@@ -35,7 +35,8 @@ abstract class GitVersionTask: DefaultTask() {
         // }
         // var gitVersion = firstProcess.inputStream.readBytes().decodeToString()
 
-        // but here, we are just hardcoding : 
+        // but here, we are just hardcoding :
+        println("writer version 1234")
         gitVersionOutputFile.get().asFile.writeText("1234")
     }
 }

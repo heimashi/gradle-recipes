@@ -1,8 +1,3 @@
-plugins {
-        id("com.android.application")
-        kotlin("android")
-        kotlin("android.extensions")
-}
 import java.io.Serializable
 import javax.inject.Inject
 import org.gradle.api.DefaultTask
@@ -15,6 +10,11 @@ import com.android.build.api.artifact.ArtifactType
 import com.android.build.api.artifact.ArtifactTransformationRequest
 import com.android.build.api.variant.BuiltArtifact
 
+plugins {
+        id("com.android.application")
+        kotlin("android")
+        kotlin("android.extensions")
+}
 
 interface WorkItemParameters: WorkParameters, Serializable {
     val inputApkFile: RegularFileProperty

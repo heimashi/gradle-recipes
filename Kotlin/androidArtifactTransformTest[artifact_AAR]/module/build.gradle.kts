@@ -1,8 +1,3 @@
-plugins {
-        id("com.android.library")
-        kotlin("android")
-        kotlin("android.extensions")
-}
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.InputFiles
@@ -12,6 +7,12 @@ import org.gradle.api.tasks.Internal
 import com.android.build.api.artifact.ArtifactType
 import org.gradle.api.tasks.OutputFile
 import com.android.utils.appendCapitalized
+
+plugins {
+        id("com.android.library")
+        kotlin("android")
+        kotlin("android.extensions")
+}
 
 abstract class UpdateArtifactTask: DefaultTask() {
     @get: InputFiles
@@ -23,7 +24,7 @@ abstract class UpdateArtifactTask: DefaultTask() {
     @TaskAction
     fun taskAction() {
         val versionCode = "artifactTransformed = true"
-        println("artifactPresent = " + initialArtifact.isPresent)
+        println("artifactPresent = " + initialArtifact.isPresent + initialArtifact.get().asFile.absolutePath)
         updatedArtifact.get().asFile.writeText(versionCode)
     }
 }

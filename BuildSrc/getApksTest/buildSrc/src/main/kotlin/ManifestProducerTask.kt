@@ -34,7 +34,7 @@ abstract class ManifestProducerTask: DefaultTask() {
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.android.build.example.minimal"
         android:versionName="${gitVersion}"
-        android:versionCode="1" >
+        android:versionCode="10" >
         <application android:label="Minimal">
             <activity android:name="MainActivity">
                 <intent-filter>

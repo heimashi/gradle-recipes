@@ -1,9 +1,10 @@
+import com.android.build.api.variant.AndroidVersion
+
 plugins {
         id("com.android.application")
         kotlin("android")
         kotlin("android.extensions")
 }
-import com.android.build.api.variant.AndroidVersion
 
 android {
     
@@ -13,6 +14,7 @@ android {
         targetSdkVersion(29)
     }
 }
+
 androidComponents {
     beforeVariants { variant ->
         if (variant.name == "release") {

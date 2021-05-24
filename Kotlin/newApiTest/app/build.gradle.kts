@@ -1,8 +1,3 @@
-plugins {
-        id("com.android.application")
-        kotlin("android")
-        kotlin("android.extensions")
-}
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.InputFiles
@@ -11,6 +6,12 @@ import com.android.build.api.variant.BuiltArtifactsLoader
 import com.android.build.api.artifact.ArtifactType
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Internal
+
+plugins {
+        id("com.android.application")
+        kotlin("android")
+        kotlin("android.extensions")
+}
 
 abstract class DisplayApksTask: DefaultTask() {
 

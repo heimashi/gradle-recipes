@@ -29,15 +29,21 @@ abstract class ExamplePlugin: Plugin<Project> {
 
             val copyApksProvider = project.tasks.register("copy${variant.name}Apks", CopyApksTask::class.java)
 
+//            val transformationRequest = variant.artifacts.use(copyApksProvider)
+//                .wiredWithDirectories(
+//                    CopyApksTask::apkFolder,
+//                    CopyApksTask::outFolder)
+//                .toTransformMany(ArtifactType.APK)
+
             val transformationRequest = variant.artifacts.use(copyApksProvider)
                 .wiredWithDirectories(
                     CopyApksTask::apkFolder,
                     CopyApksTask::outFolder)
-                .toTransformMany(ArtifactType.APK)
+                .toTransform(ArtifactType.APK)
 
-            copyApksProvider.configure {
-                it.transformationRequest.set(transformationRequest)
-            }
+//            copyApksProvider.configure {
+//                it.transformationRequest.set(transformationRequest)
+//            }
         }
     }
 }

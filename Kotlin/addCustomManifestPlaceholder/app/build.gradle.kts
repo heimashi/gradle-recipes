@@ -1,10 +1,11 @@
+import com.android.build.api.artifact.ArtifactType
 plugins {
         id("com.android.application")
         kotlin("android")
         kotlin("android.extensions")
 }
 
-import com.android.build.api.artifact.ArtifactType
+
 abstract class ManifestReaderTask: DefaultTask() {
 
     @get:InputFile

@@ -37,44 +37,52 @@ import com.android.build.api.artifact.ArtifactTransformationRequest
 import com.android.build.api.variant.BuiltArtifact
 
 
-interface WorkItemParameters: WorkParameters, Serializable {
+interface WorkItemParameters : WorkParameters, Serializable {
     val inputApkFile: RegularFileProperty
     val outputApkFile: RegularFileProperty
 }
 
-abstract class WorkItem @Inject constructor(private val workItemParameters: WorkItemParameters)
-    : WorkAction<WorkItemParameters> {
+abstract class WorkItem @Inject constructor(private val workItemParameters: WorkItemParameters) :
+    WorkAction<WorkItemParameters> {
     override fun execute() {
+        println(">>>> execute ${Thread.currentThread()} ${workItemParameters.outputApkFile.get().asFile.absolutePath}")
         workItemParameters.outputApkFile.get().asFile.delete()
         workItemParameters.inputApkFile.asFile.get().copyTo(
-            workItemParameters.outputApkFile.get().asFile)
+            workItemParameters.outputApkFile.get().asFile
+        )
     }
 }
-abstract class CopyApksTask @Inject constructor(private val workers: WorkerExecutor): DefaultTask() {
+
+abstract class CopyApksTask @Inject constructor(private val workers: WorkerExecutor) :
+    DefaultTask() {
 
     @get:InputFiles
     abstract val apkFolder: DirectoryProperty
 
     @get:OutputDirectory
     abstract val outFolder: DirectoryProperty
-
-    @get:Internal
-    abstract val transformationRequest: Property<ArtifactTransformationRequest<CopyApksTask>>
+//
+//    @get:Internal
+//    abstract val transformationRequest: Property<ArtifactTransformationRequest<CopyApksTask>>
 
     @TaskAction
     fun taskAction() {
+        apkFolder.get().asFile.listFiles()?.forEach {
+            it.copyTo(File(outFolder.get().asFile, "re-"+it.name))
+        }
 
-      transformationRequest.get().submit(
-         this, 
-         workers.noIsolation(),
-         WorkItem::class.java) {
-             builtArtifact: BuiltArtifact, 
-             outputLocation: Directory, 
-             param: WorkItemParameters -> 
-                val inputFile = File(builtArtifact.outputFile)
-                param.inputApkFile.set(inputFile)
-                param.outputApkFile.set(File(outputLocation.asFile, inputFile.name))
-                param.outputApkFile.get().asFile
-         }
+
+//      transformationRequest.get().submit(
+//         this,
+//         workers.noIsolation(),
+//         WorkItem::class.java) {
+//             builtArtifact: BuiltArtifact,
+//             outputLocation: Directory,
+//             param: WorkItemParameters ->
+//                val inputFile = File(builtArtifact.outputFile)
+//                param.inputApkFile.set(inputFile)
+//                param.outputApkFile.set(File(outputLocation.asFile, "renamed-" + inputFile.name))
+//                param.outputApkFile.get().asFile
+//         }
     }
 }

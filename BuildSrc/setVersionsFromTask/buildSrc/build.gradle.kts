@@ -1,7 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    maven("/home/jedo/src/studio-4.2-dev/prebuilts/tools/common/m2/repository")
+    "groovy"
+    kotlin("jvm") version "1.3.72"
 }
 
 repositories {

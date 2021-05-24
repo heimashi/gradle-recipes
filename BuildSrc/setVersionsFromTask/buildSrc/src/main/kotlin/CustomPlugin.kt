@@ -47,7 +47,7 @@ fun ApplicationAndroidComponentsExtension.configure(project: Project) {
         val mainOutput = variant.outputs.single { it.outputType == OutputType.SINGLE }
 
         // create version Code generating task
-        val versionCodeTask = project.tasks.register("computeVersionCodeFor${variant.name}", VersionCodeTask::class.java) {
+        val versionCodeTask = project.tasks.register("computeVersionCodeFor${variant.name.capitalize()}", VersionCodeTask::class.java) {
             it.outputFile.set(project.layout.buildDirectory.file("versionCode.txt"))
         }
 
@@ -59,7 +59,7 @@ fun ApplicationAndroidComponentsExtension.configure(project: Project) {
         mainOutput.versionCode.set(versionCodeTask.map { it.outputFile.get().asFile.readText().toInt() })
 
         // same for version Name
-        val versionNameTask = project.tasks.register("computeVersionNameFor${variant.name}", VersionNameTask::class.java) {
+        val versionNameTask = project.tasks.register("computeVersionNameFor${variant.name.capitalize()}", VersionNameTask::class.java) {
             it.outputFile.set(project.layout.buildDirectory.file("versionName.txt"))
         }
         mainOutput.versionName.set(versionNameTask.map { it.outputFile.get().asFile.readText() })

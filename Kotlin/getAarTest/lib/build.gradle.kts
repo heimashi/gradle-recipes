@@ -1,8 +1,3 @@
-plugins {
-        id("com.android.library")
-        kotlin("android")
-        kotlin("android.extensions")
-}
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.InputFile
@@ -12,6 +7,12 @@ import com.android.build.api.variant.BuiltArtifactsLoader
 import com.android.build.api.artifact.ArtifactType
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Internal
+
+plugins {
+        id("com.android.library")
+        kotlin("android")
+        kotlin("android.extensions")
+}
 
 abstract class AarUploadTask: DefaultTask() {
 

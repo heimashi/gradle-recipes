@@ -1,8 +1,3 @@
-plugins {
-        id("com.android.application")
-        kotlin("android")
-        kotlin("android.extensions")
-}
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.InputFile
@@ -11,6 +6,11 @@ import org.gradle.api.tasks.TaskAction
 import com.android.build.api.artifact.ArtifactType
 import com.android.build.api.variant.BuildConfigField
 
+plugins {
+        id("com.android.application")
+        kotlin("android")
+        kotlin("android.extensions")
+}
 
 abstract class GitVersionTask: DefaultTask() {
 
@@ -51,12 +51,13 @@ android {
         targetSdkVersion(29)
     }
 }
+
 androidComponents {
     onVariants {
         it.buildConfigFields.put("GitVersion", gitVersionProvider.map {  task ->
             BuildConfigField(
                 "String",
-                "\"{task.gitVersionOutputFile.get().asFile.readText(Charsets.UTF_8)}\"",
+                "\"${task.gitVersionOutputFile.get().asFile.readText(Charsets.UTF_8)}\"",
                 "Git Version")
         })
     }
